@@ -14,19 +14,21 @@ public class Main {
 	private static Deque<File> items = new ArrayDeque<>();
 
 
-	private static void preparationToCreationDirectory(String path) {
+	private static void prepareToCreateDirectory(String path) {
 		File someDir = new File(path);
 		dirs.add(someDir);
 	}
 
-	private static void preparationToCreationFile(String path, String child) {
+	private static void prepareToCreateFile(String path, String child) {
 		File someItem = new File(path, child);
 		items.add(someItem);
 	}
 
 	//создать папку
 	private static void createDirectory(Deque<File> deq) {
-		for (File f : deq) {
+
+		while (!deq.isEmpty()) {
+			File f = deq.poll();
 			if (f.mkdir()) {
 				System.out.println(f + " directory was created");
 				out.append(f + " directory was created \n");
@@ -39,7 +41,9 @@ public class Main {
 
 	//создать файл
 	private static void createFile(Deque<File> deq) {
-		for (File f1 : deq) {
+
+		while (!deq.isEmpty()) {
+			File f1 = deq.poll();
 			try {
 				if (f1.createNewFile()) {
 					System.out.println(f1 + " file was created");
@@ -70,25 +74,24 @@ public class Main {
 	public static void main(String[] args) {
 
 
-		preparationToCreationDirectory("C:\\Games\\src");
-		preparationToCreationDirectory("C:\\Games\\res");
-		preparationToCreationDirectory("C:\\Games\\savegames");
-		preparationToCreationDirectory("C:\\Games\\temp");
-		preparationToCreationDirectory("C:\\Games\\src\\main");
-		preparationToCreationDirectory("C:\\Games\\src\\test");
+		prepareToCreateDirectory("C:\\Games\\src");
+		prepareToCreateDirectory("C:\\Games\\res");
+		prepareToCreateDirectory("C:\\Games\\savegames");
+		prepareToCreateDirectory("C:\\Games\\temp");
+		prepareToCreateDirectory("C:\\Games\\src\\main");
+		prepareToCreateDirectory("C:\\Games\\src\\test");
 
-		preparationToCreationFile("C:\\Games\\src\\main", "Main.java");
-		preparationToCreationFile("C:\\Games\\src\\main", "Utils.java");
+		prepareToCreateFile("C:\\Games\\src\\main", "Main.java");
+		prepareToCreateFile("C:\\Games\\src\\main", "Utils.java");
 
-		preparationToCreationDirectory("C:\\Games\\res\\drawables");
-		preparationToCreationDirectory("C:\\Games\\res\\vectors");
-		preparationToCreationDirectory("C:\\Games\\res\\icons");
+		prepareToCreateDirectory("C:\\Games\\res\\drawables");
+		prepareToCreateDirectory("C:\\Games\\res\\vectors");
+		prepareToCreateDirectory("C:\\Games\\res\\icons");
 
-		preparationToCreationFile("C:\\Games\\temp", "temp.txt");
+		prepareToCreateFile("C:\\Games\\temp", "temp.txt");
 
 		createDirectory(dirs);
 		createFile(items);
 		fillTemp("C:\\Games\\temp\\temp.txt");
-
 	}
 }
